@@ -1,0 +1,27 @@
+{
+    "id": "00F7F1E5",
+    "path": "~/projects/cosmos/src/1_lectura.R",
+    "project_path": "src/1_lectura.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1656376311196.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "90,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1656395980,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1656395980566,
+    "read_only": false,
+    "read_only_alternatives": []
+}
