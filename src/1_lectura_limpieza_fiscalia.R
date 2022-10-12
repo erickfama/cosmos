@@ -53,4 +53,6 @@ carp_clean <- left_join(carp_clean, carp_violacion_violencia, by = "id_carpeta")
 rm(carp_reps, carp_violacion_violencia, carp_raw)
 
 # Escritura 
-write_csv(carp_clean, "./data/3_final/carp_clean.csv")
+if(file.exists("./data/3_final/carp_clean.csv") == FALSE){
+  write_csv(carp_clean, "./data/3_final/carp_clean.csv")
+}
