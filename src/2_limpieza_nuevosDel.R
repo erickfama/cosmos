@@ -38,7 +38,8 @@ judicial2_clean <- judicial2_raw %>%
          dias_juicio_apela1 = ifelse(fecha1 >= fecha_juicio & fecha1 < fecha_concluye_juicio, difftime(fecha1, fecha_juicio), NA),
          dias_concluyeJuicio_apela1 = ifelse(fecha1 >= fecha_concluye_juicio, difftime(fecha1, fecha_concluye_juicio, units = "days"), NA), # Revisar diferencia negativas en esta fecha
          dias_apela1_apela2 = difftime(fecha2, fecha1, units = "days"), # Consultar significado fecha1, fecha2 y fecha3
-         dias_apela2_apela3 = difftime(fecha3, fecha2, units = "days"))
+         dias_apela2_apela3 = difftime(fecha3, fecha2, units = "days"),
+         dias_presenta_concluyeJuicio = difftime(fecha_concluye_juicio, fecha_presenta, units = "days"))
 
 # Definición de violación ----
 # Abuso sexual - Es agresión sexual
