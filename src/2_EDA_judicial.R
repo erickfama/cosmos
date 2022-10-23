@@ -10,10 +10,15 @@ library(tidyr)
 judicial_clean <- read.csv("./data/3_final/judicial_clean.csv") %>%
   mutate(across(starts_with("fecha"), ~ ymd(.x)))
 
+judicial_clean[duplicated(judicial_clean), ]
+
 # Violencia familiar ----
 
-familiar <- judicial_clean %>% filter(delito == "VIOLENCIA FAMILIAR")
-
+familiar <- judicial_clean %>% filter(delito == "VIOLENCIA FAMILIAR") %>%
+  mutate(dias_presenta_julio2022 = difftime(max(judicial_clean %>% 
+      filter(delito == "VIOLENCIA FAMILIAR") %>% 
+      pull(fecha_presenta))
+, fecha_presenta, units = "days"))
 
 # distribuciones fechas
 judicial_clean %>%
@@ -61,7 +66,19 @@ familiar %>%
   geom_text(stat='count', aes(label=..count..), vjust=-1) +
   facet_wrap(~delito)
 
-## Denuncia a abreviado ----
+## Denuncias que no avanzan por fecha temprana ----
+sum(familiar$dias_presenta_julio2022 < 180 & is.na(familiar$fecha_audiencia_intermedia) & is.na(familiar$fecha_abreviado))
+
+## Denuncias que no han avanzado ----
+sum(familiar$dias_presenta_julio2022 >= 180 & is.na(familiar$fecha_audiencia_intermedia) & is.na(familiar$fecha_abreviado))
+
+## Denuncias a abreviado ----
+sum(!is.na(familiar$fecha_abreviado))
+
+## Denuncias que continuan proceso ----
+sum(!is.na(familiar$fecha_audiencia_intermedia)) - 20
+
+## Denuncia a abreviado en inicial ----
 sum(!is.na(familiar$fecha_abreviado))
 familiar_abreviado <- familiar %>%
   filter(!is.na(fecha_abreviado) & is.na(fecha_audiencia_intermedia))
@@ -140,7 +157,11 @@ familiar_tley %>%
 
 # Violacion ----
 
-violacion <- judicial_clean %>% filter(delito == "VIOLACIÓN")
+violacion <- judicial_clean %>% filter(delito == "VIOLACIÓN") %>%
+  mutate(dias_presenta_julio2022 = difftime(max(judicial_clean %>% 
+      filter(delito == "VIOLACIÓN") %>% 
+      pull(fecha_presenta))
+, fecha_presenta, units = "days")) 
 
 ## Estadisticas basicas ----
 
@@ -158,7 +179,19 @@ violacion %>%
   geom_text(stat='count', aes(label=..count..), vjust=-1) +
   facet_wrap(~delito)
 
-## Denuncia a abreviado ----
+## Denuncias que no avanzan por fecha temprana ----
+sum(violacion$dias_presenta_julio2022 < 180 & is.na(violacion$fecha_audiencia_intermedia) & is.na(violacion$fecha_abreviado))
+
+## Denuncias que no han avanzado ----
+sum(violacion$dias_presenta_julio2022 >= 180 & is.na(violacion$fecha_audiencia_intermedia) & is.na(violacion$fecha_abreviado))
+
+## Denuncias a abreviado ----
+sum(!is.na(violacion$fecha_abreviado))
+
+## Denuncias que continuan proceso ----
+sum(!is.na(violacion$fecha_audiencia_intermedia)) - 22
+
+## Denuncia a abreviado en inicial ----
 sum(!is.na(violacion$fecha_abreviado))
 violacion_abreviado <- violacion %>%
   filter(!is.na(fecha_abreviado) & is.na(fecha_audiencia_intermedia))
