@@ -25,6 +25,7 @@ judicial2_clean <- judicial2_raw %>%
          delito  %in% c("VIOLACIÓN", "VIOLACIÓN EQUIPARADA", "VIOLENCIA FAMILIAR")) %>% 
   mutate(across(starts_with("fecha_"), ~ lubridate::ymd(str_remove(.x, "\\s\\d+:\\d+:\\d+")))) %>% # Se eliminan las horas para evitar problemas de diferencias negativas por variaciones en minutos
   mutate(year_presenta = lubridate::year(fecha_presenta),
+         dias_presenta_julio2022 = difftime(lubridate::ymd("2022-07-01"), fecha_presenta, units = "days"),
          dias_presenta_intermedia = difftime(fecha_audiencia_intermedia, fecha_presenta, units = "days"),
          dias_presenta_abreviado = difftime(fecha_abreviado, fecha_presenta, units = "days"),
          dias_intermedia_abreviado = ifelse(dias_presenta_intermedia == dias_presenta_abreviado, 1, 0),

@@ -9,6 +9,7 @@ library(stringr)
 # Estructura de carpetas ----
 if(dir.exists("./data") == FALSE){
   dir.create("./data")
+  dir.create("./figs")
   dir.create("./data/1_raw")
   dir.create("./data/1_raw/delitos")
   dir.create("./data/1_raw/delitos/sistema_tradicional")
